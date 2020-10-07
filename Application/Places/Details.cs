@@ -1,0 +1,45 @@
+using System;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Errors;
+using AutoMapper;
+using Domain;
+using MediatR;
+using Persistence;
+
+namespace Application.Places
+{
+    public class Details
+    {
+        public class Query : IRequest<Place>
+        {
+            public Guid Id { get; set; }
+        }
+        public class Handler : IRequestHandler<Query, Place>
+        {
+            private readonly DataContext _context;
+            private readonly IMapper _mapper;
+            public Handler(DataContext context, IMapper mapper)
+            {
+                //this._mapper = mapper;
+                this._context = context;
+            }
+            public async Task<Place> Handle(Query request, CancellationToken cancellationToken)
+            {
+                //eager loading
+                // var activity = await _context.Activities.Include(x => x.UserActivities).ThenInclude(x => x.AppUser).SingleOrDefaultAsync(x => x.Id == request.Id);
+
+                //lazy loading
+                var place = await _context.Places.FindAsync(request.Id);
+
+                if (place == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { place = "Notfound" });
+
+                //var activityToReturn = _mapper.Map<Activity, ActivityDTO>(activity);
+                //return activityToReturn;
+                return place;
+            }
+        }
+    }
+}
