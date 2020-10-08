@@ -16,7 +16,7 @@ namespace Application.Places
     {
         public class PlacesEnvelope
         {
-            public List<Place> Places { get; set; }
+            public List<PlaceDTO> Places { get; set; }
             public int PlaceCount { get; set; }
         }
         public class Query : IRequest<PlacesEnvelope>
@@ -39,9 +39,12 @@ namespace Application.Places
         public class Handler : IRequestHandler<Query, PlacesEnvelope>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IMapper _mapper;
+
+            public Handler(DataContext context, IMapper mapper)
             {
                 this._context = context;
+                this._mapper = mapper;
             }
 
             public async Task<PlacesEnvelope> Handle(Query request, CancellationToken cancellationToken)
@@ -54,7 +57,7 @@ namespace Application.Places
 
                 var returnPlaces = new PlacesEnvelope
                 {
-                    Places = places,
+                    Places = _mapper.Map<List<Place>, List<PlaceDTO>>(places),
                     PlaceCount = queryable.Count()
                 };
                 return returnPlaces;

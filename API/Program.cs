@@ -42,7 +42,7 @@ namespace API
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     context.Database.Migrate();
                     //call the seed db in Persistence
-                    //Seed.SeedData(context, userManager).Wait();
+                    Seed.SeedData(context, userManager).Wait();
                 }
                 catch (Exception ex)
                 {

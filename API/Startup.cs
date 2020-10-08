@@ -2,8 +2,8 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Middleware;
 using API.SignalR;
-using Application.Activities;
 using Application.Interfaces;
+using Application.Places;
 using Application.Profiles;
 using AutoMapper;
 using Domain;
@@ -44,11 +44,11 @@ namespace API
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 opt.UseLazyLoadingProxies();
             });
-            services.AddDbContext<DataContextSample>(opt =>
-          {
-              opt.UseSqlite(Configuration.GetConnectionString("SQLLiteConnection"));
-              opt.UseLazyLoadingProxies();
-          });
+            //     services.AddDbContext<DataContextSample>(opt =>
+            //   {
+            //       opt.UseSqlite(Configuration.GetConnectionString("SQLLiteConnection"));
+            //       opt.UseLazyLoadingProxies();
+            //   });
             //add CORS for Cross origin requests
             services.AddCors(opt =>
             {

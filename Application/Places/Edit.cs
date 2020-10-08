@@ -49,7 +49,7 @@ namespace Application.Places
                 place.Description = request.Description ?? place.Description;
                 place.ParentPlace = request.ParentPlace ?? place.ParentPlace;
                 place.Notes = request.Notes ?? place.Notes;
-                place.IsActive = request.IsActive;
+                place.IsActive = request.IsActive ? request.IsActive : true;
 
                 //return result
                 var isSuccess = await _context.SaveChangesAsync() > 0;

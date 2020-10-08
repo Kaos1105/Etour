@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -15,7 +17,7 @@ namespace Application.Places
 
             public Guid PlaceId { get; set; }
             public string PlaceName { get; set; }
-            public Place ParentPlace { get; set; }
+            public Guid ParentPlaceId { get; set; }
             public string Description { get; set; }
             public string Notes { get; set; }
         }
@@ -38,13 +40,19 @@ namespace Application.Places
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                var parentPlace = await _context.Places.FindAsync(request.ParentPlaceId);
+
+                if (parentPlace == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { Activity = "Not found" });
+
                 var place = new Place
                 {
                     PlaceId = request.PlaceId,
                     PlaceName = request.PlaceName,
-                    ParentPlace = request.ParentPlace,
                     Description = request.Description,
+                    ParentPlace = parentPlace,
                     Notes = request.Notes,
+                    IsActive = true,
                 };
 
                 _context.Places.Add(place);

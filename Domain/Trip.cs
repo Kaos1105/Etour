@@ -6,7 +6,6 @@ namespace Domain
     public class Trip
     {
         public Guid TripId { get; set; }
-        public Tour Tour { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
@@ -15,6 +14,7 @@ namespace Domain
         public bool IsActive { get; set; }
         public string TripType { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual Tour Tour { get; set; }
 
     }
 }

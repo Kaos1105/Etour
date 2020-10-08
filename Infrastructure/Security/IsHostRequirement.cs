@@ -17,8 +17,8 @@ namespace Infrastructure.Security
     public class IsHostRequirementHandler : AuthorizationHandler<IsHostRequirement>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly DataContextSample _context;
-        public IsHostRequirementHandler(IHttpContextAccessor httpContextAccessor, DataContextSample context)
+        private readonly DataContext _context;
+        public IsHostRequirementHandler(IHttpContextAccessor httpContextAccessor, DataContext context)
         {
             this._httpContextAccessor = httpContextAccessor;
             this._context = context;
@@ -52,27 +52,25 @@ namespace Infrastructure.Security
 
             //.NET CORE 3.1
             //check if current log in user is the host of the activity
+            // var currentUserName = _httpContextAccessor.HttpContext.User?.Claims?.SingleOrDefault(x => x.Type
+            //   == ClaimTypes.NameIdentifier)?.Value;
 
+            // var httpContext = _httpContextAccessor.HttpContext;
 
-            var currentUserName = _httpContextAccessor.HttpContext.User?.Claims?.SingleOrDefault(x => x.Type
-              == ClaimTypes.NameIdentifier)?.Value;
+            // var activityId = Guid.Parse(httpContext.Request.RouteValues["id"].ToString());
 
-            var httpContext = _httpContextAccessor.HttpContext;
+            // var activity = _context.Activities.FindAsync(activityId).Result;
 
-            var activityId = Guid.Parse(httpContext.Request.RouteValues["id"].ToString());
+            // var host = activity.UserActivities.FirstOrDefault(x => x.IsHost);
 
-            var activity = _context.Activities.FindAsync(activityId).Result;
-
-            var host = activity.UserActivities.FirstOrDefault(x => x.IsHost);
-
-            if (host?.AppUser?.UserName == currentUserName)
-            {
-                context.Succeed(requirement);
-            }
-            else
-            {
-                context.Fail();
-            }
+            // if (host?.AppUser?.UserName == currentUserName)
+            // {
+            //     context.Succeed(requirement);
+            // }
+            // else
+            // {
+            //     context.Fail();
+            // }
             return Task.CompletedTask;
         }
     }

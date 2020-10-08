@@ -51,8 +51,24 @@ namespace Persistence
                 {
                     new Place
                     {
-
-                    }
+                        PlaceName="VietNam",
+                        IsActive=true,
+                    },
+                    new Place
+                    {
+                        PlaceName="Japan",
+                        IsActive=true,
+                    },
+                    new Place
+                    {
+                        PlaceName="Korea",
+                        IsActive=true,
+                    },
+                    new Place
+                    {
+                        PlaceName="China",
+                        IsActive=true,
+                    },
                 };
 
                 await context.Places.AddRangeAsync(places);
