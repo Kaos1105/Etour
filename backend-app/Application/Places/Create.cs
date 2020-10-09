@@ -14,7 +14,6 @@ namespace Application.Places
     {
         public class Command : IRequest
         {
-
             public Guid PlaceId { get; set; }
             public string PlaceName { get; set; }
             public Guid ParentPlaceId { get; set; }

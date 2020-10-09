@@ -6,6 +6,7 @@ namespace Domain
     public class TourDTO
     {
         public Guid TourId { get; set; }
+        public string TourName { get; set; }
         public string TourType { get; set; }
         public string Description { get; set; }
         public string Notes { get; set; }

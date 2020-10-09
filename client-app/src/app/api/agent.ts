@@ -64,6 +64,8 @@ const requests = {
   },
 };
 
+//API request
+
 const Activities = {
   list: (params: URLSearchParams): Promise<IActivitiesEnvelope> =>
     axios.get('/activities', { params: params }).then(sleep(500)).then(responseBody),
