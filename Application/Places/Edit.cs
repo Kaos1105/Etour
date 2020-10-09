@@ -44,7 +44,7 @@ namespace Application.Places
                 //handler logic
                 var place = await _context.Places.FindAsync(request.PlaceId);
                 if (place == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { place = "Notfound" });
+                    throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
                 place.PlaceName = request.PlaceName ?? place.PlaceName;
                 place.Description = request.Description ?? place.Description;
                 place.ParentPlace = request.ParentPlace ?? place.ParentPlace;

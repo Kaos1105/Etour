@@ -74,6 +74,31 @@ namespace Persistence
                 await context.Places.AddRangeAsync(places);
                 await context.SaveChangesAsync();
             }
+
+            if (!context.Tours.Any())
+            {
+                var tours = new List<Tour>
+                {
+                    new Tour
+                    {
+                        TourName="VietNam-China",
+                        TourDuration=75,
+                    },
+                     new Tour
+                    {
+                        TourName="VietNam-Japan",
+                        TourDuration=95,
+                    },
+                     new Tour
+                    {
+                        TourName="VietNam-Korea",
+                        TourDuration=90,
+                    },
+                };
+
+                await context.Tours.AddRangeAsync(tours);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

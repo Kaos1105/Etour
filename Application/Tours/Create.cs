@@ -8,25 +8,32 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Places
+namespace Application.Tours
 {
     public class Create
     {
         public class Command : IRequest
         {
-
-            public Guid PlaceId { get; set; }
-            public string PlaceName { get; set; }
-            public Guid ParentPlaceId { get; set; }
+            public Guid TourId { get; set; }
+            public string TourName { get; set; }
+            public string TourType { get; set; }
             public string Description { get; set; }
             public string Notes { get; set; }
+            public int TourDuration { get; set; }
+            public bool IsActive { get; set; }
+            public string StartPlaceId { get; set; }
+            public string EndPlaceId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.PlaceName).NotEmpty();
+                RuleFor(x => x.TourName).NotEmpty();
+                RuleFor(x => x.TourType).NotEmpty();
+                RuleFor(x => x.TourDuration).NotEmpty();
+                RuleFor(x => x.StartPlaceId).NotEmpty();
+                RuleFor(x => x.EndPlaceId).NotEmpty();
             }
         }
 
@@ -40,22 +47,26 @@ namespace Application.Places
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var parentPlace = await _context.Places.FindAsync(request.ParentPlaceId);
+                var startPlace = await _context.Places.FindAsync(request.StartPlaceId);
+                var endPlace = await _context.Places.FindAsync(request.EndPlaceId);
 
-                if (parentPlace == null)
+                if (startPlace == null || endPlace == null)
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
 
-                var place = new Place
+                var tour = new Tour
                 {
-                    PlaceId = request.PlaceId,
-                    PlaceName = request.PlaceName,
+                    TourId = request.TourId,
+                    TourType = request.TourType,
+                    TourName = request.TourName,
                     Description = request.Description,
-                    ParentPlace = parentPlace,
                     Notes = request.Notes,
+                    TourDuration = request.TourDuration,
+                    StartPlace = startPlace,
+                    EndPlace = endPlace,
                     IsActive = true,
                 };
 
-                _context.Places.Add(place);
+                _context.Tours.Add(tour);
 
                 var isSuccess = await _context.SaveChangesAsync() > 0;
                 if (isSuccess) return Unit.Value;

@@ -2,13 +2,13 @@ using System.Linq;
 using AutoMapper;
 using Domain;
 
-namespace Application.Places
+namespace Application.Tours
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<Place, PlaceDTO>();
+            CreateMap<Tour, TourDTO>();
         }
     }
 }

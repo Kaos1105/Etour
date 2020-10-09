@@ -6,7 +6,7 @@ using Application.Errors;
 using MediatR;
 using Persistence;
 
-namespace Application.Places
+namespace Application.Tours
 {
     public class Delete
     {
@@ -27,11 +27,11 @@ namespace Application.Places
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 //handler logic
-                var place = await _context.Places.FindAsync(request.Id);
-                if (place == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { Place = "Notfound" });
+                var tour = await _context.Tours.FindAsync(request.Id);
+                if (tour == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { Tour = "Not found" });
                 //_context.Places.Remove(place);
-                place.IsActive = false;
+                tour.IsActive = false;
                 //return result
                 var isSuccess = await _context.SaveChangesAsync() > 0;
                 if (isSuccess) return Unit.Value;
