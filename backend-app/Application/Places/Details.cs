@@ -22,7 +22,7 @@ namespace Application.Places
             private readonly IMapper _mapper;
             public Handler(DataContext context, IMapper mapper)
             {
-                //this._mapper = mapper;
+                this._mapper = mapper;
                 this._context = context;
             }
             public async Task<PlaceDTO> Handle(Query request, CancellationToken cancellationToken)

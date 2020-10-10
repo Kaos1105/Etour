@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Application.Tours;
+using Application.HelperCodes;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [AllowAnonymous]
-    public class ToursController : BaseController
+    public class CodesController : BaseController
     {
         // [HttpGet]
         // public async Task<ActionResult<List<Activity>>> List(CancellationToken cancellationToken)
@@ -18,14 +18,14 @@ namespace API.Controllers
         // }
 
         [HttpGet]
-        public async Task<ActionResult<List.ToursEnvelope>> List(int? limit, int? offset, string tourName, string tourType, int? tourDuration, Guid? startPlaceId, Guid? endPlaceId, bool? isActive)
+        public async Task<ActionResult<List.HelperCodesEnvelope>> List(int? limit, int? offset, string codeType, string codeName, string codeValue, string codeContent, bool? isActive)
         {
-            return await Mediator.Send(new List.Query(limit, offset, tourName, tourType, tourDuration, startPlaceId, endPlaceId, isActive));
+            return await Mediator.Send(new List.Query(limit, offset, codeType, codeName, codeValue, codeContent, isActive));
         }
 
         [HttpGet("{id}")]
         //[Authorize]
-        public async Task<ActionResult<TourDTO>> Details(Guid id)
+        public async Task<ActionResult<HelperCode>> Details(Guid id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }
@@ -39,7 +39,7 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command)
         {
-            command.TourId = id;
+            command.Id = id;
             return await Mediator.Send(command);
         }
 

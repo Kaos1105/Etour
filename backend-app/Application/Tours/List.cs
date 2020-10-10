@@ -61,7 +61,7 @@ namespace Application.Tours
 
                 var queryable = _context.Tours.Where(item =>
                 (string.IsNullOrEmpty(request.TourName) || item.TourName.Contains(request.TourName)) &&
-                (string.IsNullOrEmpty(request.TourType) || item.TourName.Contains(request.TourType)) &&
+                (string.IsNullOrEmpty(request.TourType) || item.TourType.Contains(request.TourType)) &&
                 (request.TourDuration == null || item.TourDuration == request.TourDuration) &&
                 (request.StartPlaceId == null || item.StartPlace.PlaceId == request.StartPlaceId) &&
                 (request.EndPlaceId == null || item.EndPlace.PlaceId == request.EndPlaceId) &&

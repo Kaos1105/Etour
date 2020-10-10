@@ -6,6 +6,7 @@ using Application.Errors;
 using Domain;
 using FluentValidation;
 using MediatR;
+using System.Linq;
 using Persistence;
 
 namespace Application.Tours
@@ -21,8 +22,8 @@ namespace Application.Tours
             public string Notes { get; set; }
             public int TourDuration { get; set; }
             public bool IsActive { get; set; }
-            public string StartPlaceId { get; set; }
-            public string EndPlaceId { get; set; }
+            public Guid StartPlaceId { get; set; }
+            public Guid EndPlaceId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -30,7 +31,7 @@ namespace Application.Tours
             public CommandValidator()
             {
                 RuleFor(x => x.TourName).NotEmpty();
-                RuleFor(x => x.TourType).NotEmpty();
+                //RuleFor(x => x.TourType).NotEmpty();
                 RuleFor(x => x.TourDuration).NotEmpty();
                 RuleFor(x => x.StartPlaceId).NotEmpty();
                 RuleFor(x => x.EndPlaceId).NotEmpty();
@@ -47,11 +48,17 @@ namespace Application.Tours
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                var existTour = _context.Tours.FirstOrDefault(x => x.TourName == request.TourName);
                 var startPlace = await _context.Places.FindAsync(request.StartPlaceId);
                 var endPlace = await _context.Places.FindAsync(request.EndPlaceId);
 
                 if (startPlace == null || endPlace == null)
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
+
+                if (existTour != null)
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, new { Tour = "Tour with same name already exist" });
+                }
 
                 var tour = new Tour
                 {

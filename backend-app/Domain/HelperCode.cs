@@ -10,5 +10,6 @@ namespace Domain
         public string CodeName { get; set; }
         public string CodeValue { get; set; }
         public string CodeContent { get; set; }
+        public bool IsActive { get; set; }
     }
 }

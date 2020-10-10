@@ -8,15 +8,15 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.Tours
+namespace Application.HelperCodes
 {
     public class Details
     {
-        public class Query : IRequest<TourDTO>
+        public class Query : IRequest<HelperCode>
         {
             public Guid Id { get; set; }
         }
-        public class Handler : IRequestHandler<Query, TourDTO>
+        public class Handler : IRequestHandler<Query, HelperCode>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -25,20 +25,19 @@ namespace Application.Tours
                 this._mapper = mapper;
                 this._context = context;
             }
-            public async Task<TourDTO> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<HelperCode> Handle(Query request, CancellationToken cancellationToken)
             {
                 //eager loading
                 // var activity = await _context.Activities.Include(x => x.UserActivities).ThenInclude(x => x.AppUser).SingleOrDefaultAsync(x => x.Id == request.Id);
 
                 //lazy loading
-                var tour = await _context.Tours.FindAsync(request.Id);
+                var code = await _context.HelperCodes.FindAsync(request.Id);
 
-                if (tour == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { TourDTO = "Not found" });
+                if (code == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { HelperCode = "Not found" });
 
-                var tourToReturn = _mapper.Map<Tour, TourDTO>(tour);
                 //return activityToReturn;
-                return tourToReturn;
+                return code;
             }
         }
     }

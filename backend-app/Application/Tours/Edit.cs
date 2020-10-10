@@ -31,11 +31,11 @@ namespace Application.Tours
         {
             public CommandValidator()
             {
-                RuleFor(x => x.TourName).NotEmpty();
-                RuleFor(x => x.TourType).NotEmpty();
-                RuleFor(x => x.TourDuration).NotEmpty();
-                RuleFor(x => x.StartPlaceId).NotEmpty();
-                RuleFor(x => x.EndPlaceId).NotEmpty();
+                //sRuleFor(x => x.TourName).NotEmpty();
+                //RuleFor(x => x.TourType).NotEmpty();
+                //RuleFor(x => x.TourDuration).NotEmpty();
+                //RuleFor(x => x.StartPlaceId).NotEmpty();
+                //RuleFor(x => x.EndPlaceId).NotEmpty();
             }
         }
 
@@ -54,7 +54,7 @@ namespace Application.Tours
                 var endPlace = await _context.Places.FindAsync(request.EndPlaceId);
                 var tour = await _context.Tours.FindAsync(request.TourId);
 
-                if (startPlace == null || endPlace == null)
+                if ((startPlace == null && request.StartPlaceId != Guid.Empty) || (endPlace == null) && (request.EndPlaceId != Guid.Empty))
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
                 if (tour == null)
                     throw new RestException(HttpStatusCode.NotFound, new { Tour = "Not found" });

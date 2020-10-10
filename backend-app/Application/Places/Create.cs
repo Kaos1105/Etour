@@ -7,6 +7,7 @@ using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
+using System.Linq;
 
 namespace Application.Places
 {
@@ -39,11 +40,13 @@ namespace Application.Places
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                var existPlace = _context.Places.FirstOrDefault(x => x.PlaceName == request.PlaceName);
                 var parentPlace = await _context.Places.FindAsync(request.ParentPlaceId);
 
                 if (parentPlace == null)
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
-
+                if (existPlace != null)
+                    throw new RestException(HttpStatusCode.BadRequest, new { Place = "Place with same name already exist" });
                 var place = new Place
                 {
                     PlaceId = request.PlaceId,
