@@ -6,6 +6,7 @@ namespace Domain
     public class Trip
     {
         public Guid TripId { get; set; }
+        public string TripName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
