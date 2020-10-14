@@ -34,7 +34,7 @@ namespace Application.Places
                 var place = await _context.Places.FindAsync(request.Id);
 
                 if (place == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { place = "Notfound" });
+                    throw new RestException(HttpStatusCode.NotFound, new { place = "Not found" });
 
                 var placeToReturn = _mapper.Map<Place, PlaceDTO>(place);
                 //return activityToReturn;

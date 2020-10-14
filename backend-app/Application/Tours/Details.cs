@@ -34,7 +34,7 @@ namespace Application.Tours
                 var tour = await _context.Tours.FindAsync(request.Id);
 
                 if (tour == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { TourDTO = "Not found" });
+                    throw new RestException(HttpStatusCode.NotFound, new { Tour = "Not found" });
 
                 var tourToReturn = _mapper.Map<Tour, TourDTO>(tour);
                 //return activityToReturn;

@@ -21,8 +21,7 @@ namespace Application.Tours
         }
         public class Query : IRequest<ToursEnvelope>
         {
-#nullable enable
-            public Query(int? limit, int? offset, string? tourName, string? tourType, int? tourDuration, Guid? startPlaceId, Guid? endPlaceId, bool? isActive)
+            public Query(int? limit, int? offset, string tourName, string tourType, int? tourDuration, Guid? startPlaceId, Guid? endPlaceId, bool? isActive)
             {
                 this.Limit = limit;
                 this.Offset = offset;
@@ -35,9 +34,9 @@ namespace Application.Tours
             }
             public int? Limit { get; set; }
             public int? Offset { get; set; }
-            public string? TourName { get; set; }
+            public string TourName { get; set; }
             public bool? IsActive { get; set; }
-            public string? TourType { get; set; }
+            public string TourType { get; set; }
             public int? TourDuration { get; set; }
             public Guid? StartPlaceId { get; set; }
             public Guid? EndPlaceId { get; set; }

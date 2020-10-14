@@ -1,0 +1,896 @@
+{
+	"info": {
+		"_postman_id": "45eca9f0-b0ab-43c7-bb41-c2b7f8e3bf95",
+		"name": "ETour",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Place",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2893f55f-1753-4874-bbc8-095871f74a40",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"placeId\": \"{{$guid}}\",\n    \"placeName\": \"Quy Nhon City\",\n    \"description\": null,\n    \"notes\": null,\n    \"parentPlaceId\": \"7943befa-7e09-4177-a48b-5ea72545fabc\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/places/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"places",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Place",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f66280fc-2da6-4030-bb09-5b1ef8058640",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"placeName\": \"China\",\n\t\"isActive\": true\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/places/ecf91f78-19ed-49a6-c3f9-08d86ad230ea",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"places",
+						"ecf91f78-19ed-49a6-c3f9-08d86ad230ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Place",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/places/f3f7299d-ea1b-4725-c3f6-08d86ad230ea",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"places",
+						"f3f7299d-ea1b-4725-c3f6-08d86ad230ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e1e65d0-3412-43e0-9a93-03dc0d71866f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/places?limit=100",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"places"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "placeName",
+							"value": "Vi",
+							"disabled": true
+						},
+						{
+							"key": "isActive",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Place",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/places/ecf91f78-19ed-49a6-c3f9-08d86ad230ea",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"places",
+						"ecf91f78-19ed-49a6-c3f9-08d86ad230ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Tour",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7b0e828f-2c1a-4a63-8000-8f4e1e3d332d",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tourId\": \"{{$guid}}\",\n    \"tourName\": \"HaNoi-HoChiMinh\",\n    \"tourType\": \"Domestic\",\n    \"description\": null,\n    \"notes\": null,\n    \"tourDuration\": 60,\n    \"startPlaceId\": \"a50d2456-ba24-4f9e-a981-5ed7ac654ff6\",\n    \"endPlaceId\": \"adb812f6-290f-401e-820f-33d2f793164d\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tours/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tours",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tour",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/tours/4095d791-a770-4277-0d1e-08d86c1ed1d9",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tours",
+						"4095d791-a770-4277-0d1e-08d86c1ed1d9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Tours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "42ba06ad-d1bd-4fbb-91f1-d4f64f1c20e3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/tours?limit=100",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tours"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "tourName",
+							"value": "chi",
+							"disabled": true
+						},
+						{
+							"key": "isActive",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "tourDuration",
+							"value": "75",
+							"disabled": true
+						},
+						{
+							"key": "tourType",
+							"value": "Domestic",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Tour",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "376eddfc-3561-46db-b539-e41ed39a1916",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tourType\": \"Domestic\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tours/65ef1eef-8b33-418e-9f43-9773d4e22bbf",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tours",
+						"65ef1eef-8b33-418e-9f43-9773d4e22bbf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Tour",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/tours/4095d791-a770-4277-0d1e-08d86c1ed1d9",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tours",
+						"4095d791-a770-4277-0d1e-08d86c1ed1d9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Code",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "174004b6-e47a-4325-82cc-e90691df42d0",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"codeType\": \"TRIP\",\n    \"codeName\":\"TRIPTYPE\",\n    \"codeValue\": \"Sale\",\n    \"codeContent\":\"Chuyến khuyến mãi\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/codes/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"codes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Code",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/codes/9293d0a7-3e9b-45f4-a8e8-08d86d11b02b",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"codes",
+						"9293d0a7-3e9b-45f4-a8e8-08d86d11b02b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Codes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "78f47d34-08a0-43fa-bfa4-4a29db01be7d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/codes?limit=100",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"codes"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "offset",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "codeType",
+							"value": "Trip",
+							"disabled": true
+						},
+						{
+							"key": "codeName",
+							"value": "type",
+							"disabled": true
+						},
+						{
+							"key": "codeValue",
+							"value": "sale",
+							"disabled": true
+						},
+						{
+							"key": "codeContent",
+							"value": "chuyến",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Code",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "77c3eae9-dc6a-45b3-a669-29389248b59c",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isActive\": true\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/codes/ec1dbc68-eb8f-424c-4fc1-08d86d12a92d",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"codes",
+						"ec1dbc68-eb8f-424c-4fc1-08d86d12a92d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Code",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/codes/ec1dbc68-eb8f-424c-4fc1-08d86d12a92d",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"codes",
+						"ec1dbc68-eb8f-424c-4fc1-08d86d12a92d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Trip",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9894c647-6a9b-4eca-b2d4-0cd51b671685",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('startDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tripId\": \"{{$guid}}\",\n    \"tripName\": \"Vietname-Japan 15/10/2020\",\n    \"tripType\": \"Normal\",\n    \"price\": 7200000,\n    \"description\": null,\n    \"notes\": null,\n    \"startDate\": \"2020-10-15T10:30\",\n    \"tourId\": \"84c215ee-d51b-48bd-0d1f-08d86c1ed1d9\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/trips/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"trips",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Trip",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/trips/e46296ec-867f-4d75-9012-b65f2e87251a",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"trips",
+						"e46296ec-867f-4d75-9012-b65f2e87251a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Trips",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b7d042b-5e08-41e9-872c-8a4fc89cfb5c",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/trips?limit=100",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"trips"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "tripName",
+							"value": "VietNam",
+							"disabled": true
+						},
+						{
+							"key": "isActive",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "tripType",
+							"value": "normal",
+							"disabled": true
+						},
+						{
+							"key": "startDate",
+							"value": "2020-10-12T10:30",
+							"disabled": true
+						},
+						{
+							"key": "endDate",
+							"value": "2020-10-15T23:59",
+							"disabled": true
+						},
+						{
+							"key": "price",
+							"value": "7200000",
+							"disabled": true
+						},
+						{
+							"key": "tourId",
+							"value": "65ef1eef-8b33-418e-9f43-9773d4e22bbf",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Trip",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "fd840252-f635-4261-b7cd-97ddfd190277",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tripName\": \"Vietname-Korea 11/10/2020\",\n    \"startDate\": \"2020-10-11T10:30\",\n    \"tourId\": \"59f498f1-339e-452c-0d20-08d86c1ed1d9\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/trips/466ff503-18e8-4696-bf2b-6db1f55e0964",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"trips",
+						"466ff503-18e8-4696-bf2b-6db1f55e0964"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Trip",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/trips/466ff503-18e8-4696-bf2b-6db1f55e0964",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"trips",
+						"466ff503-18e8-4696-bf2b-6db1f55e0964"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "35c5f870-c1d0-4784-9159-e988019fd1aa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "82b79d3f-df52-423b-b2a9-a7a0aeb7001c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d2bbfa9e-a5b2-47e0-ab7b-f145c7741456",
+			"key": "url",
+			"value": "https://localhost:5001"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

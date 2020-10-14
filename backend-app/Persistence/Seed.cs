@@ -83,16 +83,19 @@ namespace Persistence
                     {
                         TourName="VietNam-China",
                         TourDuration=75,
+                        TourType="International"
                     },
                      new Tour
                     {
                         TourName="VietNam-Japan",
                         TourDuration=95,
+                        TourType="International"
                     },
                      new Tour
                     {
                         TourName="VietNam-Korea",
                         TourDuration=90,
+                        TourType="International"
                     },
                 };
 

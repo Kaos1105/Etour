@@ -21,8 +21,7 @@ namespace Application.Places
         }
         public class Query : IRequest<PlacesEnvelope>
         {
-#nullable enable
-            public Query(int? limit, int? offset, string? placeName, bool? isActive)
+            public Query(int? limit, int? offset, string placeName, bool? isActive)
             {
                 this.Limit = limit;
                 this.Offset = offset;
@@ -31,7 +30,7 @@ namespace Application.Places
             }
             public int? Limit { get; set; }
             public int? Offset { get; set; }
-            public string? PlaceName { get; set; }
+            public string PlaceName { get; set; }
             public bool? IsActive { get; set; }
 
         }

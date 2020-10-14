@@ -18,12 +18,11 @@ namespace Application.Trips
             public Guid TripId { get; set; }
             public string TripName { get; set; }
             public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
             public string Description { get; set; }
             public string Notes { get; set; }
             public long Price { get; set; }
             public string TripType { get; set; }
-            public string TourId { get; set; }
+            public Guid TourId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -32,7 +31,6 @@ namespace Application.Trips
             {
                 RuleFor(x => x.TripName).NotEmpty();
                 RuleFor(x => x.StartDate).NotEmpty();
-                RuleFor(x => x.EndDate).NotEmpty();
                 RuleFor(x => x.Price).NotEmpty();
                 RuleFor(x => x.TripType).NotEmpty();
                 RuleFor(x => x.TourId).NotEmpty();
@@ -52,7 +50,7 @@ namespace Application.Trips
                 var existTrip = _context.Trips.FirstOrDefault(x => x.TripName == request.TripName);
                 var tour = await _context.Tours.FindAsync(request.TourId);
 
-                if (tour == null)
+                if (tour == null && request.TourId != Guid.Empty && request.TourId != null)
                     throw new RestException(HttpStatusCode.NotFound, new { Tour = "Not found" });
 
                 if (existTrip != null)
@@ -69,7 +67,7 @@ namespace Application.Trips
                     Notes = request.Notes,
                     Price = request.Price,
                     StartDate = request.StartDate,
-                    EndDate = request.EndDate,
+                    EndDate = request.StartDate.AddHours(tour.TourDuration),
                     Tour = tour,
                     IsActive = true,
                 };

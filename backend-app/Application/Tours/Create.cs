@@ -21,9 +21,8 @@ namespace Application.Tours
             public string Description { get; set; }
             public string Notes { get; set; }
             public int TourDuration { get; set; }
-            public bool IsActive { get; set; }
-            public Guid StartPlaceId { get; set; }
-            public Guid EndPlaceId { get; set; }
+            public Guid? StartPlaceId { get; set; }
+            public Guid? EndPlaceId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -31,7 +30,7 @@ namespace Application.Tours
             public CommandValidator()
             {
                 RuleFor(x => x.TourName).NotEmpty();
-                //RuleFor(x => x.TourType).NotEmpty();
+                RuleFor(x => x.TourType).NotEmpty();
                 RuleFor(x => x.TourDuration).NotEmpty();
                 RuleFor(x => x.StartPlaceId).NotEmpty();
                 RuleFor(x => x.EndPlaceId).NotEmpty();
@@ -52,7 +51,7 @@ namespace Application.Tours
                 var startPlace = await _context.Places.FindAsync(request.StartPlaceId);
                 var endPlace = await _context.Places.FindAsync(request.EndPlaceId);
 
-                if (startPlace == null || endPlace == null)
+                if ((startPlace == null && request.StartPlaceId != Guid.Empty && request.StartPlaceId != null) || (endPlace == null && request.EndPlaceId != Guid.Empty && request.EndPlaceId != null))
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
 
                 if (existTour != null)

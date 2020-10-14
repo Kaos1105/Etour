@@ -15,63 +15,63 @@ namespace Application.Trips
         public class Command : IRequest
         {
             //command properties
-
-            public Guid TourId { get; set; }
-            public string TourName { get; set; }
-            public string TourType { get; set; }
+            public Guid TripId { get; set; }
+            public string TripName { get; set; }
+            public DateTime? StartDate { get; set; }
+            public DateTime? EndDate { get; set; }
             public string Description { get; set; }
             public string Notes { get; set; }
-            public int? TourDuration { get; set; }
-            public bool IsActive { get; set; }
-            public Guid StartPlaceId { get; set; }
-            public Guid EndPlaceId { get; set; }
-        }
+            public long? Price { get; set; }
+            public string TripType { get; set; }
+            public Guid? TourId { get; set; }
+            public bool? IsActive { get; set; }
 
-        public class CommandValidator : AbstractValidator<Command>
-        {
-            public CommandValidator()
+            public class CommandValidator : AbstractValidator<Command>
             {
-                //sRuleFor(x => x.TourName).NotEmpty();
-                //RuleFor(x => x.TourType).NotEmpty();
-                //RuleFor(x => x.TourDuration).NotEmpty();
-                //RuleFor(x => x.StartPlaceId).NotEmpty();
-                //RuleFor(x => x.EndPlaceId).NotEmpty();
-            }
-        }
-
-        public class Handler : IRequestHandler<Command>
-        {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
-            {
-                this._context = context;
+                public CommandValidator()
+                {
+                    //RuleFor(x => x.TripId).NotEmpty();
+                    //RuleFor(x => x.TourType).NotEmpty();
+                    //RuleFor(x => x.TourDuration).NotEmpty();
+                    //RuleFor(x => x.StartPlaceId).NotEmpty();
+                    //RuleFor(x => x.EndPlaceId).NotEmpty();
+                }
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public class Handler : IRequestHandler<Command>
             {
-                //handler logic
-                var startPlace = await _context.Places.FindAsync(request.StartPlaceId);
-                var endPlace = await _context.Places.FindAsync(request.EndPlaceId);
-                var tour = await _context.Tours.FindAsync(request.TourId);
+                private readonly DataContext _context;
+                public Handler(DataContext context)
+                {
+                    this._context = context;
+                }
 
-                if ((startPlace == null && request.StartPlaceId != Guid.Empty) || (endPlace == null) && (request.EndPlaceId != Guid.Empty))
-                    throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
-                if (tour == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { Tour = "Not found" });
-                tour.TourType = request.TourType ?? tour.TourType;
-                tour.TourName = request.TourName ?? tour.TourName;
-                tour.Description = request.Description ?? tour.Description;
-                tour.Notes = request.Notes ?? tour.Notes;
-                tour.TourDuration = request.TourDuration ?? tour.TourDuration;
-                tour.StartPlace = startPlace;
-                tour.EndPlace = endPlace;
-                tour.IsActive = request.IsActive ? request.IsActive : true;
+                public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+                {
+                    //handler logic
+                    var trip = await _context.Trips.FindAsync(request.TripId);
+                    var tour = await _context.Tours.FindAsync(request.TourId);
 
-                //return result
-                var isSuccess = await _context.SaveChangesAsync() > 0;
-                if (isSuccess) return Unit.Value;
+                    if (tour == null && request.TourId != Guid.Empty && request.TourId != null)
+                        throw new RestException(HttpStatusCode.NotFound, new { Tour = "Not found" });
+                    if (trip == null)
+                        throw new RestException(HttpStatusCode.NotFound, new { Trip = "Not found" });
+                    trip.TripName = request.TripName ?? trip.TripName;
+                    trip.TripType = request.TripType ?? trip.TripType;
+                    trip.Description = request.Description ?? trip.Description;
+                    trip.Notes = request.Notes ?? trip.Notes;
+                    trip.Price = request.Price ?? trip.Price;
+                    trip.StartDate = request.StartDate ?? trip.StartDate;
+                    trip.EndDate = request.EndDate ?? trip.StartDate.AddHours(tour.TourDuration);
+                    trip.IsActive = request.IsActive ?? trip.IsActive;
+                    trip.Tour = tour;
 
-                throw new Exception("Problem saving changes");
+                    //return result
+                    var isSuccess = await _context.SaveChangesAsync() > 0;
+                    if (isSuccess) return Unit.Value;
+
+                    throw new Exception("Problem saving changes");
+                }
             }
         }
     }

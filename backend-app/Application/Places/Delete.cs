@@ -29,7 +29,7 @@ namespace Application.Places
                 //handler logic
                 var place = await _context.Places.FindAsync(request.Id);
                 if (place == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { Place = "Notfound" });
+                    throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
                 //_context.Places.Remove(place);
                 place.IsActive = false;
                 //return result

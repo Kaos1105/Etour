@@ -5,14 +5,16 @@ namespace Domain
 {
     public class TripDTO
     {
-        public Guid TourId { get; set; }
-        public string TourName { get; set; }
-        public string TourType { get; set; }
+        public Guid TripId { get; set; }
+        public string TripName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string Description { get; set; }
         public string Notes { get; set; }
-        public int TourDuration { get; set; }
+        public long Price { get; set; }
         public bool IsActive { get; set; }
-        public virtual Place StartPlace { get; set; }
-        public virtual Place EndPlace { get; set; }
+        public string TripType { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual Tour Tour { get; set; }
     }
 }

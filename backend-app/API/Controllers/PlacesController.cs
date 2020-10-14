@@ -11,11 +11,6 @@ namespace API.Controllers
     [AllowAnonymous]
     public class PlacesController : BaseController
     {
-        // [HttpGet]
-        // public async Task<ActionResult<List<Activity>>> List(CancellationToken cancellationToken)
-        // {
-        //     return await Mediator.Send(new List.Query(), cancellationToken);
-        // }
 
         [HttpGet]
         public async Task<ActionResult<List.PlacesEnvelope>> List(int? limit, int? offset, string placeName, bool? isActive)

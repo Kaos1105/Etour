@@ -8,7 +8,7 @@ namespace Application.Trips
     {
         public MappingProfile()
         {
-            CreateMap<Tour, TourDTO>();
+            CreateMap<Trip, TripDTO>();
         }
     }
 }

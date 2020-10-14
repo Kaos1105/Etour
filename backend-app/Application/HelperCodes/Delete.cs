@@ -29,7 +29,7 @@ namespace Application.HelperCodes
                 //handler logic
                 var code = await _context.HelperCodes.FindAsync(request.Id);
                 if (code == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { HelperCode = "Code not found" });
+                    throw new RestException(HttpStatusCode.NotFound, new { HelperCode = "Not found" });
                 //_context.Places.Remove(place);
                 code.IsActive = false;
                 //return result

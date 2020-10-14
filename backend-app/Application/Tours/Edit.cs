@@ -16,15 +16,15 @@ namespace Application.Tours
         {
             //command properties
 
-            public Guid TourId { get; set; }
+            public Guid? TourId { get; set; }
             public string TourName { get; set; }
             public string TourType { get; set; }
             public string Description { get; set; }
             public string Notes { get; set; }
             public int? TourDuration { get; set; }
-            public bool IsActive { get; set; }
-            public Guid StartPlaceId { get; set; }
-            public Guid EndPlaceId { get; set; }
+            public bool? IsActive { get; set; }
+            public Guid? StartPlaceId { get; set; }
+            public Guid? EndPlaceId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -54,7 +54,7 @@ namespace Application.Tours
                 var endPlace = await _context.Places.FindAsync(request.EndPlaceId);
                 var tour = await _context.Tours.FindAsync(request.TourId);
 
-                if ((startPlace == null && request.StartPlaceId != Guid.Empty) || (endPlace == null) && (request.EndPlaceId != Guid.Empty))
+                if ((startPlace == null && request.StartPlaceId != Guid.Empty && request.StartPlaceId != null) || (endPlace == null && request.EndPlaceId != Guid.Empty && request.EndPlaceId != null))
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
                 if (tour == null)
                     throw new RestException(HttpStatusCode.NotFound, new { Tour = "Not found" });
@@ -65,7 +65,7 @@ namespace Application.Tours
                 tour.TourDuration = request.TourDuration ?? tour.TourDuration;
                 tour.StartPlace = startPlace;
                 tour.EndPlace = endPlace;
-                tour.IsActive = request.IsActive ? request.IsActive : true;
+                tour.IsActive = request.IsActive ?? tour.IsActive;
 
                 //return result
                 var isSuccess = await _context.SaveChangesAsync() > 0;

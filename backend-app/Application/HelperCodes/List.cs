@@ -21,8 +21,7 @@ namespace Application.HelperCodes
         }
         public class Query : IRequest<HelperCodesEnvelope>
         {
-#nullable enable
-            public Query(int? limit, int? offset, string? codeType, string? codeName, string? codeValue, string? codeContent, bool? isActive)
+            public Query(int? limit, int? offset, string codeType, string codeName, string codeValue, string codeContent, bool? isActive)
             {
                 this.Limit = limit;
                 this.Offset = offset;
@@ -34,10 +33,10 @@ namespace Application.HelperCodes
             }
             public int? Limit { get; set; }
             public int? Offset { get; set; }
-            public string? CodeType { get; set; }
-            public string? CodeName { get; set; }
-            public string? CodeValue { get; set; }
-            public string? CodeContent { get; set; }
+            public string CodeType { get; set; }
+            public string CodeName { get; set; }
+            public string CodeValue { get; set; }
+            public string CodeContent { get; set; }
             public bool? IsActive { get; set; }
 
         }

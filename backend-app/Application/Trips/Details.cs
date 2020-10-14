@@ -12,11 +12,11 @@ namespace Application.Trips
 {
     public class Details
     {
-        public class Query : IRequest<TourDTO>
+        public class Query : IRequest<TripDTO>
         {
             public Guid Id { get; set; }
         }
-        public class Handler : IRequestHandler<Query, TourDTO>
+        public class Handler : IRequestHandler<Query, TripDTO>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -25,20 +25,20 @@ namespace Application.Trips
                 this._mapper = mapper;
                 this._context = context;
             }
-            public async Task<TourDTO> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<TripDTO> Handle(Query request, CancellationToken cancellationToken)
             {
                 //eager loading
                 // var activity = await _context.Activities.Include(x => x.UserActivities).ThenInclude(x => x.AppUser).SingleOrDefaultAsync(x => x.Id == request.Id);
 
                 //lazy loading
-                var tour = await _context.Tours.FindAsync(request.Id);
+                var trip = await _context.Trips.FindAsync(request.Id);
 
-                if (tour == null)
-                    throw new RestException(HttpStatusCode.NotFound, new { TourDTO = "Not found" });
+                if (trip == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { Trip = "Not found" });
 
-                var tourToReturn = _mapper.Map<Tour, TourDTO>(tour);
+                var tripToReturn = _mapper.Map<Trip, TripDTO>(trip);
                 //return activityToReturn;
-                return tourToReturn;
+                return tripToReturn;
             }
         }
     }

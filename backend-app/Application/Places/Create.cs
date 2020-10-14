@@ -17,7 +17,7 @@ namespace Application.Places
         {
             public Guid PlaceId { get; set; }
             public string PlaceName { get; set; }
-            public Guid ParentPlaceId { get; set; }
+            public Guid? ParentPlaceId { get; set; }
             public string Description { get; set; }
             public string Notes { get; set; }
         }
@@ -43,7 +43,7 @@ namespace Application.Places
                 var existPlace = _context.Places.FirstOrDefault(x => x.PlaceName == request.PlaceName);
                 var parentPlace = await _context.Places.FindAsync(request.ParentPlaceId);
 
-                if (parentPlace == null)
+                if (parentPlace == null && request.ParentPlaceId != Guid.Empty && request.ParentPlaceId != null)
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
                 if (existPlace != null)
                     throw new RestException(HttpStatusCode.BadRequest, new { Place = "Place with same name already exist" });

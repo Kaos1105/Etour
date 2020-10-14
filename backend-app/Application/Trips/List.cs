@@ -14,37 +14,38 @@ namespace Application.Trips
 {
     public class List
     {
-        public class ToursEnvelope
+        public class TripsEnvelope
         {
-            public List<TourDTO> Tours { get; set; }
-            public int TourCount { get; set; }
+            public List<TripDTO> Trips { get; set; }
+            public int TripCount { get; set; }
         }
-        public class Query : IRequest<ToursEnvelope>
+        public class Query : IRequest<TripsEnvelope>
         {
-#nullable enable
-            public Query(int? limit, int? offset, string? tourName, string? tourType, int? tourDuration, Guid? startPlaceId, Guid? endPlaceId, bool? isActive)
+            public Query(int? limit, int? offset, string tripName, string tripType, DateTime? startDate, DateTime? endDate, long? price, Guid? tourId, bool? isActive)
             {
                 this.Limit = limit;
                 this.Offset = offset;
-                this.TourName = tourName;
-                this.TourType = tourType;
-                this.TourDuration = tourDuration;
-                this.StartPlaceId = startPlaceId;
-                this.EndPlaceId = endPlaceId;
+                this.TripName = tripName;
+                this.TripType = tripType;
+                this.StartDate = startDate;
+                this.EndDate = endDate;
+                this.Price = price;
+                this.TourId = tourId;
                 this.IsActive = isActive;
             }
             public int? Limit { get; set; }
             public int? Offset { get; set; }
-            public string? TourName { get; set; }
+            public string TripName { get; set; }
             public bool? IsActive { get; set; }
-            public string? TourType { get; set; }
-            public int? TourDuration { get; set; }
-            public Guid? StartPlaceId { get; set; }
-            public Guid? EndPlaceId { get; set; }
+            public string TripType { get; set; }
+            public DateTime? StartDate { get; set; }
+            public DateTime? EndDate { get; set; }
+            public long? Price { get; set; }
+            public Guid? TourId { get; set; }
 
         }
 
-        public class Handler : IRequestHandler<Query, ToursEnvelope>
+        public class Handler : IRequestHandler<Query, TripsEnvelope>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -55,27 +56,28 @@ namespace Application.Trips
                 this._mapper = mapper;
             }
 
-            public async Task<ToursEnvelope> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<TripsEnvelope> Handle(Query request, CancellationToken cancellationToken)
             {
                 //lazy loading
 
-                var queryable = _context.Tours.Where(item =>
-                (string.IsNullOrEmpty(request.TourName) || item.TourName.Contains(request.TourName)) &&
-                (string.IsNullOrEmpty(request.TourType) || item.TourType.Contains(request.TourType)) &&
-                (request.TourDuration == null || item.TourDuration == request.TourDuration) &&
-                (request.StartPlaceId == null || item.StartPlace.PlaceId == request.StartPlaceId) &&
-                (request.EndPlaceId == null || item.EndPlace.PlaceId == request.EndPlaceId) &&
+                var queryable = _context.Trips.Where(item =>
+                (string.IsNullOrEmpty(request.TripName) || item.TripName.Contains(request.TripName)) &&
+                (string.IsNullOrEmpty(request.TripType) || item.TripType.Contains(request.TripType)) &&
+                (request.Price == null || item.Price == request.Price) &&
+                (request.TourId == null || item.Tour.TourId == request.TourId) &&
+                (request.StartDate == null || item.StartDate >= request.StartDate) &&
+                (request.EndDate == null || item.EndDate <= request.EndDate) &&
                 (request.IsActive == null || item.IsActive == request.IsActive))
                 .AsQueryable();
 
-                var tours = await queryable.Skip(request.Offset ?? 0).Take(request.Limit ?? 3).ToListAsync();
+                var trips = await queryable.Skip(request.Offset ?? 0).Take(request.Limit ?? 3).ToListAsync();
 
-                var returnTours = new ToursEnvelope
+                var returnTrips = new TripsEnvelope
                 {
-                    Tours = _mapper.Map<List<Tour>, List<TourDTO>>(tours),
-                    TourCount = queryable.Count()
+                    Trips = _mapper.Map<List<Trip>, List<TripDTO>>(trips),
+                    TripCount = queryable.Count()
                 };
-                return returnTours;
+                return returnTrips;
             }
         }
     }

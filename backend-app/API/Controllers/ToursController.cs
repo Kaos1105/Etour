@@ -11,11 +11,6 @@ namespace API.Controllers
     [AllowAnonymous]
     public class ToursController : BaseController
     {
-        // [HttpGet]
-        // public async Task<ActionResult<List<Activity>>> List(CancellationToken cancellationToken)
-        // {
-        //     return await Mediator.Send(new List.Query(), cancellationToken);
-        // }
 
         [HttpGet]
         public async Task<ActionResult<List.ToursEnvelope>> List(int? limit, int? offset, string tourName, string tourType, int? tourDuration, Guid? startPlaceId, Guid? endPlaceId, bool? isActive)

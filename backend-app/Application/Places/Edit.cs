@@ -17,9 +17,9 @@ namespace Application.Places
             //command properties
             public Guid PlaceId { get; set; }
             public string PlaceName { get; set; }
-            public Place ParentPlace { get; set; }
+            public Guid? ParentPlaceId { get; set; }
             public string Description { get; set; }
-            public bool IsActive { get; set; }
+            public bool? IsActive { get; set; }
             public string Notes { get; set; }
         }
 
@@ -27,7 +27,7 @@ namespace Application.Places
         {
             public CommandValidator()
             {
-                RuleFor(x => x.PlaceName).NotEmpty();
+                //RuleFor(x => x.PlaceName).NotEmpty();
             }
         }
 
@@ -43,13 +43,17 @@ namespace Application.Places
             {
                 //handler logic
                 var place = await _context.Places.FindAsync(request.PlaceId);
+                var parentPlace = await _context.Places.FindAsync(request.ParentPlaceId);
+
+                if (parentPlace == null && request.ParentPlaceId != Guid.Empty && request.ParentPlaceId != null)
+                    throw new RestException(HttpStatusCode.NotFound, new { ParentPlace = "Not found" });
                 if (place == null)
                     throw new RestException(HttpStatusCode.NotFound, new { Place = "Not found" });
                 place.PlaceName = request.PlaceName ?? place.PlaceName;
                 place.Description = request.Description ?? place.Description;
-                place.ParentPlace = request.ParentPlace ?? place.ParentPlace;
+                place.ParentPlace = parentPlace ?? place.ParentPlace;
                 place.Notes = request.Notes ?? place.Notes;
-                place.IsActive = request.IsActive ? request.IsActive : true;
+                place.IsActive = request.IsActive ?? place.IsActive;
 
                 //return result
                 var isSuccess = await _context.SaveChangesAsync() > 0;
