@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { DashboardState } from './reducers';
-import { getUsers } from '../../../share/api/admin/dashboard.service';
+import { getTours, getUsers } from '../../../share/api/admin/dashboard.service';
 
 export enum DashboardAction {
   TEST_ACTION = '[Dashboard] Test action',
@@ -43,7 +43,7 @@ export const testUsers = (): ThunkAction<
   DashboardActionType
 > => (dispatch) => {
   dispatch({ type: DashboardAction.TEST_USERS, payload: null });
-  return getUsers()
+  return getTours()
     .then((response) => {
       dispatch(testUsersSuccess(response.data));
     })

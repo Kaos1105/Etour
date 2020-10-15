@@ -11,7 +11,7 @@ import { DashboardState } from './reducers';
 
 interface Props {
   test: string;
-  users: any[];
+  users: any;
   setTest: (test: string) => void;
   testUsers: any;
   loading: boolean;
