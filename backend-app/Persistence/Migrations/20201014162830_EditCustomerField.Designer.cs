@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201014162830_EditCustomerField")]
+    partial class EditCustomerField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +35,6 @@ namespace Persistence.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -82,8 +81,6 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -104,10 +101,10 @@ namespace Persistence.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CitizenId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CustomerName")
+                    b.Property<string>("CitizenId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerType")
@@ -115,6 +112,9 @@ namespace Persistence.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PasssportExpiryDate")
                         .HasColumnType("datetime2");
@@ -132,6 +132,8 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Customers");
                 });
@@ -170,6 +172,9 @@ namespace Persistence.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
@@ -179,6 +184,8 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Photos");
                 });
@@ -457,11 +464,11 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.AppUser", b =>
+            modelBuilder.Entity("Domain.Customer", b =>
                 {
-                    b.HasOne("Domain.Customer", "Customer")
+                    b.HasOne("Domain.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("Domain.Photo", b =>
@@ -469,6 +476,10 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.AppUser", null)
                         .WithMany("Photos")
                         .HasForeignKey("AppUserId");
+
+                    b.HasOne("Domain.Customer", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("Domain.Place", b =>

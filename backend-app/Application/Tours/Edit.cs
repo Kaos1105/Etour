@@ -31,7 +31,7 @@ namespace Application.Tours
         {
             public CommandValidator()
             {
-                //sRuleFor(x => x.TourName).NotEmpty();
+                RuleFor(x => x.TourId).NotEmpty();
                 //RuleFor(x => x.TourType).NotEmpty();
                 //RuleFor(x => x.TourDuration).NotEmpty();
                 //RuleFor(x => x.StartPlaceId).NotEmpty();

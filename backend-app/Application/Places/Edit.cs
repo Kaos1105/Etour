@@ -15,7 +15,7 @@ namespace Application.Places
         public class Command : IRequest
         {
             //command properties
-            public Guid PlaceId { get; set; }
+            public Guid? PlaceId { get; set; }
             public string PlaceName { get; set; }
             public Guid? ParentPlaceId { get; set; }
             public string Description { get; set; }
@@ -27,7 +27,7 @@ namespace Application.Places
         {
             public CommandValidator()
             {
-                //RuleFor(x => x.PlaceName).NotEmpty();
+                RuleFor(x => x.PlaceId).NotEmpty();
             }
         }
 

@@ -15,7 +15,7 @@ namespace Application.Trips
         public class Command : IRequest
         {
             //command properties
-            public Guid TripId { get; set; }
+            public Guid? TripId { get; set; }
             public string TripName { get; set; }
             public DateTime? StartDate { get; set; }
             public DateTime? EndDate { get; set; }
@@ -30,7 +30,7 @@ namespace Application.Trips
             {
                 public CommandValidator()
                 {
-                    //RuleFor(x => x.TripId).NotEmpty();
+                    RuleFor(x => x.TripId).NotEmpty();
                     //RuleFor(x => x.TourType).NotEmpty();
                     //RuleFor(x => x.TourDuration).NotEmpty();
                     //RuleFor(x => x.StartPlaceId).NotEmpty();

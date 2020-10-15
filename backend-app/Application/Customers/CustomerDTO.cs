@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
 
 namespace Domain
 {
-    public class Customer
+    public class CustomerDTO
     {
         public Guid CustomerId { get; set; }
         public string CustomerName { get; set; }
@@ -18,6 +17,5 @@ namespace Domain
         public string Phone { get; set; }
         public bool IsActive { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
-
     }
 }
