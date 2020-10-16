@@ -32,7 +32,7 @@ namespace Application.Customers
         {
             public CommandValidator()
             {
-                RuleFor(x => x.CustomerId).NotEmpty();
+                //RuleFor(x => x.CustomerId).NotEmpty();
                 //RuleFor(x => x.customerType).NotEmpty();
                 //RuleFor(x => x.customerDuration).NotEmpty();
                 //RuleFor(x => x.StartPlaceId).NotEmpty();

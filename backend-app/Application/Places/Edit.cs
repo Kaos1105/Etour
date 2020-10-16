@@ -27,7 +27,7 @@ namespace Application.Places
         {
             public CommandValidator()
             {
-                RuleFor(x => x.PlaceId).NotEmpty();
+                //RuleFor(x => x.PlaceId).NotEmpty();
             }
         }
 

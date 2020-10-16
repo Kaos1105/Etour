@@ -30,7 +30,7 @@ namespace Application.Trips
             {
                 public CommandValidator()
                 {
-                    RuleFor(x => x.TripId).NotEmpty();
+                    //RuleFor(x => x.TripId).NotEmpty();
                     //RuleFor(x => x.TourType).NotEmpty();
                     //RuleFor(x => x.TourDuration).NotEmpty();
                     //RuleFor(x => x.StartPlaceId).NotEmpty();

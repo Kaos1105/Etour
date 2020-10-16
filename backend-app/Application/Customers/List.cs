@@ -74,6 +74,8 @@ namespace Application.Customers
                 (string.IsNullOrEmpty(request.Address) || item.Address.Contains(request.Address)) &&
                 (string.IsNullOrEmpty(request.VisaId) || item.VisaId.Contains(request.VisaId)) &&
                 (string.IsNullOrEmpty(request.Phone) || item.Phone.Contains(request.Phone)) &&
+                (request.PasssportExpiryDate == null || item.PasssportExpiryDate.Date == request.PasssportExpiryDate.Value.Date) &&
+                (request.VisaExpiryDate == null || item.VisaExpiryDate.Date == request.VisaExpiryDate.Value.Date) &&
                 (request.IsActive == null || item.IsActive == request.IsActive))
                 .AsQueryable();
 
