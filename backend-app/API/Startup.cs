@@ -22,6 +22,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Persistence;
 
 namespace API
@@ -74,8 +75,7 @@ namespace API
                     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                     option.Filters.Add(new AuthorizeFilter(policy));
                 }
-            ).AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Create>());
-            //.AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            ).AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Create>()).AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             //Add SignalR service
             services.AddSignalR();

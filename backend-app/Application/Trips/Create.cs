@@ -22,6 +22,8 @@ namespace Application.Trips
             public string Notes { get; set; }
             public long Price { get; set; }
             public string TripType { get; set; }
+            public string TripStatus { get; set; }
+            public int TripCapacity { get; set; }
             public Guid TourId { get; set; }
         }
 
@@ -34,6 +36,8 @@ namespace Application.Trips
                 RuleFor(x => x.Price).NotEmpty();
                 RuleFor(x => x.TripType).NotEmpty();
                 RuleFor(x => x.TourId).NotEmpty();
+                RuleFor(x => x.TripStatus).NotEmpty();
+                RuleFor(x => x.TripCapacity).NotEmpty();
             }
         }
 
@@ -69,6 +73,8 @@ namespace Application.Trips
                     StartDate = request.StartDate,
                     EndDate = request.StartDate.AddHours(tour.TourDuration),
                     Tour = tour,
+                    TripCapacity = request.TripCapacity,
+                    TripStatus = request.TripStatus,
                     IsActive = true,
                 };
 

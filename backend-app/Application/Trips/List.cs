@@ -38,6 +38,8 @@ namespace Application.Trips
             public string TripName { get; set; }
             public bool? IsActive { get; set; }
             public string TripType { get; set; }
+            public string TripStatus { get; set; }
+            public int? TripCapacity { get; set; }
             public DateTime? StartDate { get; set; }
             public DateTime? EndDate { get; set; }
             public long? Price { get; set; }
@@ -63,7 +65,9 @@ namespace Application.Trips
                 var queryable = _context.Trips.Where(item =>
                 (string.IsNullOrEmpty(request.TripName) || item.TripName.Contains(request.TripName)) &&
                 (string.IsNullOrEmpty(request.TripType) || item.TripType.Contains(request.TripType)) &&
+                (string.IsNullOrEmpty(request.TripStatus) || item.TripStatus.Contains(request.TripStatus)) &&
                 (request.Price == null || item.Price == request.Price) &&
+                (request.TripCapacity == null || item.TripCapacity == request.TripCapacity) &&
                 (request.TourId == null || item.Tour.TourId == request.TourId) &&
                 (request.StartDate == null || item.StartDate >= request.StartDate) &&
                 (request.EndDate == null || item.EndDate <= request.EndDate) &&

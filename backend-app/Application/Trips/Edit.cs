@@ -23,6 +23,8 @@ namespace Application.Trips
             public string Notes { get; set; }
             public long? Price { get; set; }
             public string TripType { get; set; }
+            public string TripStatus { get; set; }
+            public int? TripCapacity { get; set; }
             public Guid? TourId { get; set; }
             public bool? IsActive { get; set; }
 
@@ -64,7 +66,9 @@ namespace Application.Trips
                     trip.StartDate = request.StartDate ?? trip.StartDate;
                     trip.EndDate = request.EndDate ?? trip.StartDate.AddHours(tour.TourDuration);
                     trip.IsActive = request.IsActive ?? trip.IsActive;
-                    trip.Tour = tour;
+                    trip.TripStatus = request.TripStatus ?? trip.TripStatus;
+                    trip.TripCapacity = request.TripCapacity ?? trip.TripCapacity;
+                    trip.Tour = tour ?? trip.Tour;
 
                     //return result
                     var isSuccess = await _context.SaveChangesAsync() > 0;

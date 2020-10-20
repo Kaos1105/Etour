@@ -14,6 +14,8 @@ namespace Domain
         public long Price { get; set; }
         public bool IsActive { get; set; }
         public string TripType { get; set; }
+        public string TripStatus { get; set; }
+        public int TripCapacity { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
         public virtual Tour Tour { get; set; }
 

@@ -16,6 +16,6 @@ namespace Domain
         public string Address { get; set; }
         public string Phone { get; set; }
         public bool IsActive { get; set; }
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<TicketDTO> Tickets { get; set; }
     }
 }

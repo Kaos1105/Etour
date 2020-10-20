@@ -63,8 +63,8 @@ namespace Application.Tours
                 tour.Description = request.Description ?? tour.Description;
                 tour.Notes = request.Notes ?? tour.Notes;
                 tour.TourDuration = request.TourDuration ?? tour.TourDuration;
-                tour.StartPlace = startPlace;
-                tour.EndPlace = endPlace;
+                tour.StartPlace = startPlace ?? tour.StartPlace;
+                tour.EndPlace = endPlace ?? tour.EndPlace;
                 tour.IsActive = request.IsActive ?? tour.IsActive;
 
                 //return result
