@@ -33,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"placeId\": \"{{$guid}}\",\n    \"placeName\": \"Quy Nhon City\",\n    \"description\": null,\n    \"notes\": null,\n    \"parentPlaceId\": \"7943befa-7e09-4177-a48b-5ea72545fabc\"\n}",
+					"raw": "{\n    \"placeId\": \"{{$guid}}\",\n    \"placeName\": \"Quang Ngai\",\n    \"description\": null,\n    \"notes\": null\n}",
 					"options": {
 						"raw": {}
 					}
@@ -449,7 +449,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"codeType\": \"TRIP\",\n    \"codeName\":\"TRIPTYPE\",\n    \"codeValue\": \"Sale\",\n    \"codeContent\":\"Chuyến khuyến mãi\"\n}",
+					"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"codeType\": \"TICKET\",\n    \"codeName\":\"TICKETSTATUS\",\n    \"codeValue\": \"Canceled\",\n    \"codeContent\":\"Đã hủy\"\n}",
 					"options": {
 						"raw": {}
 					}
@@ -596,20 +596,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"isActive\": true\n}",
+					"raw": "{\n    \"codeContent\": \"Khách nước ngoài\"\n}",
 					"options": {
 						"raw": {}
 					}
 				},
 				"url": {
-					"raw": "{{url}}/api/codes/ec1dbc68-eb8f-424c-4fc1-08d86d12a92d",
+					"raw": "{{url}}/api/codes/c67437c1-6a88-4dd4-05b5-08d870f4f945",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
 						"codes",
-						"ec1dbc68-eb8f-424c-4fc1-08d86d12a92d"
+						"c67437c1-6a88-4dd4-05b5-08d870f4f945"
 					]
 				}
 			},
@@ -697,14 +697,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/trips/e46296ec-867f-4d75-9012-b65f2e87251a",
+					"raw": "{{url}}/api/trips/a7707b52-2166-4f45-be3a-d06d9410ac9a",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
 						"trips",
-						"e46296ec-867f-4d75-9012-b65f2e87251a"
+						"a7707b52-2166-4f45-be3a-d06d9410ac9a"
 					]
 				}
 			},
@@ -861,6 +861,492 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Post Customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2f95a19a-6c85-49f9-a2b1-fe428e577545",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('startDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": \"{{$guid}}\",\n    \"customerName\": \"SangNQN\",\n    \"customerType\": \"Foreigner\",\n    \"citizenId\": \"215499042\",\n    \"passsportId\": \"P215499042\",\n    \"visaId\": \"V215499042\",\n    \"address\": \"Bien Hoa City\",\n    \"phone\": \"0332198691\",\n    \"passsportExpiryDate\": \"2022-6-20T00:00\",\n    \"visaExpiryDate\": \"2022-6-20T00:00\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/customers/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "400f317c-2222-4429-96fa-688939b1e97e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/customers?limit=100",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "offset",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "customerName",
+							"value": "danh",
+							"disabled": true
+						},
+						{
+							"key": "isActive",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "customerType",
+							"value": "foreigner",
+							"disabled": true
+						},
+						{
+							"key": "passsportExpiryDate",
+							"value": "2022-10-12T10:30",
+							"disabled": true
+						},
+						{
+							"key": "visaExpiryDate",
+							"value": "2022-4-15T23:59",
+							"disabled": true
+						},
+						{
+							"key": "citizenId",
+							"value": "9042",
+							"disabled": true
+						},
+						{
+							"key": "passsportId",
+							"value": "9043",
+							"disabled": true
+						},
+						{
+							"key": "visaId",
+							"value": "9043",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "Quy Nhon",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "693",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/customers/684aab88-832c-4ad0-b97b-8b8a7b219f02",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"684aab88-832c-4ad0-b97b-8b8a7b219f02"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ab35d00d-5917-4679-b07f-6126f66aaaf1",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"isActive\": true\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/customers/684aab88-832c-4ad0-b97b-8b8a7b219f02",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"684aab88-832c-4ad0-b97b-8b8a7b219f02"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Customer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/customers/684aab88-832c-4ad0-b97b-8b8a7b219f02",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"customers",
+						"684aab88-832c-4ad0-b97b-8b8a7b219f02"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Ticket",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d01fec9e-f814-45d6-b510-512810c58baa",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ticketId\": \"{{$guid}}\",\n    \"status\": \"Active\",\n    \"description\": null,\n    \"notes\": null,\n    \"ticketPrice\": 820000,\n    \"customerId\": \"f6784868-3f5c-490a-87e6-7646cef1f566\",\n    \"tripId\": \"a7707b52-2166-4f45-be3a-d06d9410ac9a\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tickets/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/tickets/1670fde7-736c-4488-8c22-d772d7cee1cc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1670fde7-736c-4488-8c22-d772d7cee1cc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Tickets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "870d6556-560a-403d-9dfa-cf6e8566e5a3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/tickets?limit=100",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tickets"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "offset",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "customerName",
+							"value": "danh",
+							"disabled": true
+						},
+						{
+							"key": "isActive",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "customerType",
+							"value": "foreigner",
+							"disabled": true
+						},
+						{
+							"key": "passsportExpiryDate",
+							"value": "2022-10-12T10:30",
+							"disabled": true
+						},
+						{
+							"key": "visaExpiryDate",
+							"value": "2022-4-15T23:59",
+							"disabled": true
+						},
+						{
+							"key": "citizenId",
+							"value": "9042",
+							"disabled": true
+						},
+						{
+							"key": "passsportId",
+							"value": "9043",
+							"disabled": true
+						},
+						{
+							"key": "visaId",
+							"value": "9043",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "Quy Nhon",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "693",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Ticket",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "df2317a3-4e08-4332-a108-05eecb062482",
+						"exec": [
+							"var moment = require(\"moment\");",
+							"",
+							"pm.environment.set('activityDate', moment().add(14, 'days').toISOString());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"status\": \"Active\",\n      \"notes\": \"notes test\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tickets/1670fde7-736c-4488-8c22-d772d7cee1cc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1670fde7-736c-4488-8c22-d772d7cee1cc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Ticket",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/tickers/684aab88-832c-4ad0-b97b-8b8a7b219f02",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tickers",
+						"684aab88-832c-4ad0-b97b-8b8a7b219f02"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -887,7 +1373,7 @@
 	],
 	"variable": [
 		{
-			"id": "d2bbfa9e-a5b2-47e0-ab7b-f145c7741456",
+			"id": "81084029-8b2c-4646-b58d-306e850265b7",
 			"key": "url",
 			"value": "https://localhost:5001"
 		}
