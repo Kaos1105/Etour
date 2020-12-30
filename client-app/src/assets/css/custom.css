@@ -1,0 +1,276 @@
+td{
+    vertical-align:middle;
+    line-height: 35px;
+}
+.react-datetime-picker__wrapper{
+    border: 1px solid rgb(225, 229, 235);
+    border-radius: 4px;
+} 
+.modal-body{
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
+.card-body{
+    overflow-y:auto;
+     
+}
+.tour-picker .modal-body{
+    padding: 5px;
+}
+
+.trip-booking{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #FDC830;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F37335, #FDC830);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F37335, #FDC830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+#root{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+#root > div{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.trip-banner{
+    margin: 0px;
+    height: 700px;
+    background-image:url('https://i.ibb.co/BNB5n0Q/wp5240503-1-2.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+.company-logo{
+    background: #1f4037;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #99f2c8, #1f4037);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #99f2c8, #1f4037); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+padding-left: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  height: 100px;
+}
+.company-logo >div{
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    width: 80px;
+    height: 80px;
+}
+.company-logo>span{
+    padding-right: 200px;
+    font-size: 30px;
+    color: white;
+    text-decoration: dashed;
+    font-family: Roboto;
+}
+html{
+    height: auto;
+}
+
+.trip-booking .page-subtitle{
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.main_menu_iner{
+    background-color:white;
+}
+
+.btn_1, .btn_2 {
+    display: inline-block;
+    padding: 13px 30px;
+    border-radius: 0;
+    font-size: 16px;
+    color: #fff;
+    text-transform: capitalize;
+    -webkit-transition: .5s;
+    transition: .5s;
+    background-color: #fe5c24;
+    font-weight: 500;
+}
+.banner_part {
+    background-size: cover;
+    height: 650px;
+}
+.banner_part { 
+    position: relative;
+    overflow: hidden;
+    background-image: url(https://preview.colorlib.com/theme/martine/img/banner_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+@media only screen and (max-width: 991px) and (min-width: 768px){
+    .banner_part {
+        height: 700px;
+        background-color: #f0eed4;
+    }
+}
+.banner_text_iner p{
+    font-family: Montserrat-Regular;
+    font-size: 25px;
+    line-height: 1.7;
+    color:white;
+    margin: 0px; 
+    margin-top: 25px; 
+}
+
+.banner_text_iner * {
+    color: white;
+}
+
+.banner_text_iner h1{
+    font-size: 50px;
+}
+
+.banner_part .banner_text .banner_text_iner {
+    vertical-align: middle;
+}
+.banner_part .container{
+    padding-top: 140px;
+    height: 100%;
+    text-align: center;
+}
+
+.booking_part {
+    margin-top: -80px;
+    z-index: 9;
+    position: relative;
+}
+
+.banner_part .banner_text h1 {
+    font-size: 120px;
+    line-height: 1;
+    text-transform: capitalize;
+    color: #fff;
+    font-weight: 900;
+    margin-bottom: 22px;
+}
+
+.booking_part .container{
+    background-color:white;
+}
+.booking_form .form-row{
+    padding: 10px;
+}
+ 
+.nav-tabs {
+    border-bottom: 0px solid transparent;
+}
+
+.booking_form input{  
+    font-size: 20px;
+}
+.booking_form input, .booking_form .react-datetime-picker__wrapper{
+    height: 52px;
+    
+}
+.booking_form .react-datetime-picker{
+    width: 100%;
+}
+.booking_form input[class='form-control'],.booking_form .react-datetime-picker__wrapper{
+    border: 1px solid #2493e0;
+    color:  #2493e0;
+}
+.booking_form input[class='form-control'] :focus{
+    color:  #2493e0;
+    border: 1px solid #2493e0 !important;
+}
+.booking_form input[class='form-control'] ::placeholder,.booking_form input :-ms-input-placeholder,.booking_form input ::-ms-input-placeholder{
+    color:  #2493e0 !important; 
+}
+
+
+.booking_form *::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #2493e0 !important;
+    opacity: 1; /* Firefox */
+  }
+  
+  .booking_form *:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:#2493e0!important;
+  }
+  
+  .booking_form  *::-ms-input-placeholder { /* Microsoft Edge */
+    color:#2493e0 !important;
+  }
+
+  select.react-datetime-picker__inputGroup__input.react-datetime-picker__inputGroup__amPm:focus{
+      border:none !important;
+      outline:0 !important;
+  }
+
+  .booking_form .react-datetime-picker__inputGroup__hour,.booking_form .react-datetime-picker__inputGroup__minute, .booking_form .react-datetime-picker__inputGroup__amPm {
+      display:none;
+  }
+
+  .booking_form .react-datetime-picker__inputGroup__hour + span{
+      display: none;
+  }
+
+  .react-datetime-picker__inputGroup__input:invalid {
+    background:none !important;
+  }
+  .booking_form .react-datetime-picker__calendar-button__icon,  .booking_form .react-datetime-picker__clear-button__icon{
+      stroke:#2493e0;
+  }
+
+  .booking_form .nav-item{
+      margin-right: 20px !important;
+  }
+
+  .booking_form .react-datetime-picker__inputGroup__leadingZero{
+      display: none;
+  }
+  .booking_form input{
+      color: #2493e0; 
+  }
+
+  .no-result-text{
+      text-align: center;
+      margin-top: 15px;
+      font-size: 20px;
+  }
+  .btn_1{
+      cursor: pointer;
+  }
+
+  .user-welcome-text{
+      font-weight: bold;
+      color: #2493e0;
+      font-size: 20px;
+  }
+
+  .react-datetime-picker{
+    width: 100%; 
+}
+
+.customer-profile
+
+.customer-profile .react-datetime-picker__inputGroup__hour, .customer-profile .react-datetime-picker__inputGroup__minute, .customer-profile .react-datetime-picker__inputGroup__amPm {
+    display:none !important;
+}
+
+.customer-profile .react-datetime-picker__inputGroup__hour + span{
+    display: none;
+}
+.customer-profile .react-datetime-picker__inputGroup__leadingZero{
+    display: none;
+}
+
+.customer-profile .react-datetime-picker__inputGroup__hour{
+    display: none;
+}
+.user-welcome-text{
+    cursor: pointer;
+}
